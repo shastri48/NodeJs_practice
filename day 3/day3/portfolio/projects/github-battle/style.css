@@ -1,0 +1,78 @@
+.battle__header {
+  padding: 10px 50px;
+  background: black;
+  clip-path: polygon(46% 0, 100% 0, 94% 100%, 50% 100%, 7% 100%, 0 0);
+  color: yellow; }
+  .battle__header h1 {
+    padding-left: 20px; }
+    .battle__header h1 .rotate {
+      display: inline-block;
+      font-size: 50px;
+      transform: rotate(-30deg); }
+
+.battle__form {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center; }
+  .battle__form #player2Form {
+    display: none; }
+  .battle__form input {
+    height: 30px;
+    padding-left: 10px;
+    width: 70%;
+    font-size: 24px;
+    border: 2px solid #11d8ce;
+    border-right: none;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 18px;
+    vertical-align: baseline; }
+  .battle__form button {
+    padding: 5px 10px;
+    background: #16d3c9;
+    font-size: 24px;
+    border: 2px solid #11d8ce;
+    border-left: none;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    width: 25%;
+    height: 36px;
+    margin-left: -5px;
+    vertical-align: top; }
+
+.battle__display {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; }
+  .battle__display .display__player1 {
+    text-align: center; }
+    .battle__display .display__player1 img {
+      width: 40%;
+      height: auto;
+      border-radius: 50%; }
+    .battle__display .display__player1 h3 {
+      text-align: center; }
+  .battle__display .display__player2 {
+    text-align: center; }
+    .battle__display .display__player2 img {
+      width: 40%;
+      height: auto;
+      border-radius: 50%; }
+    .battle__display .display__player2 h3 {
+      text-align: center; }
+
+#start__battle {
+  width: 200px;
+  height: 50px;
+  font-size: 24px;
+  border-radius: 20px;
+  background: black;
+  color: yellow;
+  margin: 0 auto;
+  display: none; }
+
+#winner h4 {
+  font-size: 24px;
+  text-align: center; }
+
+/*# sourceMappingURL=style.css.map */

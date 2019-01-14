@@ -28,9 +28,18 @@ cli.init = () => {
 
 // processInput function
 cli.processInput = (str) => {
-	var uniqueInput = ['manual', 'help', 'exit', 'date', 'stats','users'];
+	var uniqueInput = ['manual', 'help', 'exit', 'date', 'stats','users', 'userinfo'];
 	if(typeof(str)=== 'string'){
-		if(uniqueInput.some(v=> v==str.toLowerCase()))e.emit(str.toLowerCase(),str);
+		let rec = '';
+		if(uniqueInput.some(v=> {
+			if(str.toLowerCase().includes(v)){
+				rec = v;
+				return true;
+			} else return false;
+		}))
+		{
+			e.emit(rec, str);
+		}
 		else console.log('did not match to uniqueInput')
 	}
 	else console.log('did not match with string value')
@@ -42,7 +51,9 @@ let commands = {
 	help: "Will help with all the commands to walkthrough",
 	exit: "It exits the command line",
 	date: "It prints the current date",
-	stat: "Gives out the stats of the work"
+	stat: "Gives out the stats of the work",
+	users: "Lists all users stored in json file",
+	userinfo: "Provide info for particular users"
 }
 
 // exit
@@ -50,6 +61,18 @@ e.on('exit', ()=> {
 	console.log('............Have a nice day...........');
 	process.exit(0);
 });
+
+
+// userinfo
+e.on('userinfo', (str)=>{
+	let pathValue = path.join(__dirname, '..', 'users');
+	let username = str.split('--')[1];
+	fs.readFile(pathValue+'/'+username+'.json', (err,data)=>{
+		if(err)console.log(err);
+		console.log(JSON.parse(data));
+	})
+})
+
 
 // users
 e.on('users', ()=> {
