@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Crate Posts</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div class="wrapper">
+      <%- include partials/header.ejs %>    
+      <form class="crete-post-form" action="/posts/edit/<%- post.id %>" method="POST">
+        <input type="text" class="form_item" value="<%- post.title %>" name="title" title" placeholder="Post title">
+        <input type="text" class="form_item" name="tags" value="<%- post.tags %>" placeholder="Input tags">
+        <textarea name="description" class="form_item textarea"  placeholder="Post details"><%- post.description %></textarea>
+        <button class="form_item">submit</button>
+      </form>
+    </div>
+  </body>
+</html>

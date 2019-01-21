@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Crate Posts</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="wrapper">
+      <%- include partials/header.ejs %>    
+      <div class="posts">
+        <div class="post">
+
+          <% if(editPost){ %>
+            <a class="delete__post" href="/posts/delete/<%- post.id %>"><i class="fas fa-trash-alt"></i></a>
+            <a class="delete__post" href="/posts/edit/<%- post.id %>"><i class="fas fa-edit"></i></a>
+          <% } %>
+          
+          <h1 class="post__title"><%- post.title %></h1>
+          <p class="description"><%- post.description %></p>
+          
+          <% if(locals.user){ %>
+            <form class="comment__form" action="/posts/<%- post.id %>/comment" method="POST">
+              <textarea name="comment__description"></textarea>
+              <input type="hidden" name="post" value="<%- post.id %>">
+              <button>submit</button>
+            </form>
+          <% } %>
+
+          <div class="comments">
+
+            <% if (post.comments.length) { %>
+              
+              <h2>Comments: </h2>
+              <% post.comments.forEach(function(comment){ %>
+                  <h4><%- comment.comment__description %></h4>
+                  <span class="comment__time"><%- moment(comment.created_at).fromNow() %></span>
+
+                  <% if(locals.user){ %>
+                    <% if(locals.user.id==comment.author){ %>
+                      <a href="/posts/comment/<%= comment._id %>/delete">delete</a>
+                      <a href="/posts/comment/<%= comment._id %>/edit">edit</a>
+                    <% } %>
+                  <% } %>
+                  
+              <% }); %>
+
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

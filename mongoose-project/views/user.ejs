@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>User</title>
+</head>
+<body>
+    <h1><a href="/">Home</a></h1>
+    <h1><a href="/users">users</a></h1>
+
+  <!-- displaying details of single user -->
+  <h1>Name: <%- user.name %></h1>
+  <h1>Email: <%- user.email %></h1>
+  <h1>Contact: <%- user.contact %></h1>
+  <h1>Age: <%- user.age %></h1>
+  <h1>Description: <%- user.description %></h1>
+  <a href = '/users/delete/<%- user.id %>'>remove</a>
+  <a href = '/users/edit/<%- user.id %>'>edit</a>
+</body>
+</html>

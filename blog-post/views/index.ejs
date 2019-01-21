@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to Blog Post</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- header -->
+      <%- include partials/header.ejs %>  
+
+      <!-- displaying of all post data -->
+      <div class="posts">
+        <% posts.forEach(function(post){ %>
+          <div class="post">
+            <h1 class="post__title"><a href='/posts/<%- post.slug %>'><%- post.title %></a></h1>
+            <p class="likes">tags: <%- " "+post.tags %></p>
+            
+            <% if(locals.user) { %>
+            <a class="likes" href="/posts/likes/<%- post.slug %>"><i class="em em-heart"></i><%- " "+post.likes.length %></a>
+            <% } else { %>
+              <a class="likes" href=""><i class="em em-heart"></i><%- " "+post.likes.length %></a>
+            <% } %>
+
+            <span class="likes">created: <%- moment(post.created_at).fromNow() %></span>
+          </div>
+        <% }); %>  
+      </div>
+
+    </div>
+  </body>
+</html>

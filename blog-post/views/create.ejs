@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Crate Posts</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="wrapper">
+      <%- include partials/header.ejs %>    
+      <form class="crete-post-form" action="/posts/new" method="POST">
+        <input type="text" class="form_item" name="title" placeholder="Post title">
+        <input type="text" class="form_item" name="tags" placeholder="Input tags with spaces">
+        <textarea name="description" class="form_item textarea"  placeholder="Post details"></textarea>
+        <button class="form_item">submit</button>
+      </form>
+    </div>
+  </body>
+</html>
