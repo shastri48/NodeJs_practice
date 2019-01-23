@@ -6,7 +6,7 @@ var User = require('../model/User')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log(req.user);
+  console.log(req.session);
   res.render('index', { title: 'Express' });
 });
 
@@ -32,12 +32,26 @@ router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 // post request to register
+router.get('/logout', (req,res) => {
+  req.session.destroy();
+  res.redirect('/')
+})
 
 router.post('/login', passport.authenticate('local', 
   { successRedirect: '/',
     failureRedirect: '/login',
   })
 );
+
+router.get('/auth/github',
+  passport.authenticate('github'));
+
+router.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    // success msg here
+    res.redirect('/');
+  });
 
 
 
