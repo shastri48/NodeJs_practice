@@ -4,6 +4,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var jwt = require('jsonwebtoken');
+
 
 
 

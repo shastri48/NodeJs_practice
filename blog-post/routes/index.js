@@ -4,6 +4,12 @@ var mongoose = require('mongoose');
 var moment = require('moment');
 var bcrypt = require('bcrypt');
 var postsController = require('../controller/posts');
+var jwt = require('jsonwebtoken');
+
+
+
+
+
 
 
 
@@ -19,10 +25,17 @@ var User = mongoose.model('User');
 
 
 /* GET home page. */
-router.get('/', postsController.isUser , function(req, res) {
-  Posts.find({}, (err, data) => {
-    res.render('index', {posts:data, moment:moment});
-  });
+router.get('/', postsController.isUser , function(req, res, next) {
+  console.log(req.headers);
+  // jwt.verify(req.headers.token, 'shhhhh', (err, decoded) => {
+  //   if(err) return next(err);
+    // User.findById(decoded._id, (err, user) => {
+      Posts.find({}, (err, data) => {
+        res.render('index', {posts:data, moment:moment});
+      });
+    // })
+  // })
+  
 });
 
 // login
@@ -40,7 +53,8 @@ router.post('/login', (req,res) => {
       res.send(err);
     };
     req.session.userId = user._id;
-    res.redirect('/') 
+    var token = jwt.sign({ UserId: user._id }, 'shhhhh');
+    res.json({token: token}); 
   });
 });
 
