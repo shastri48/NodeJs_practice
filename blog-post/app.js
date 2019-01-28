@@ -5,9 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var Posts = require('./models/Posts');
+var flash = require('connect-flash-plus');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var slug = require('slug');
+
+
 
 
 
@@ -30,7 +33,6 @@ var apisRouter = require('./routes/api');
 
 var app = express();
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -42,10 +44,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'altcampus cookies',
+  cookie: { maxAge: 60000 },
   resave: false,
   saveUninitialized: true,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
+app.use(flash());
 
 
 

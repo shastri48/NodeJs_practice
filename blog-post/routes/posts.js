@@ -15,7 +15,7 @@ router.get('/create', postsController.isUser, function(req, res, next) {
 
 
 // crate new post
-router.post('/new',  ( req, res ) => {
+router.post('/new', postsController.isUser, ( req, res ) => {
   var id = req.session.userId;
   var newPost = new Posts(req.body);
   newPost.author  = id;
@@ -52,13 +52,13 @@ router.get('/likes/:slug', postsController.isUser,  function(req, res, next) {
 router.get('/:slug',  postsController.isUser, postsController.getIndividualPost);
 
 // comments
-router.post('/:id/comment', postsController.addIndividualComment);
+router.post('/:id/comment', postsController.isUser, postsController.addIndividualComment);
 
 // delete particular comment
-router.get('/comment/:id/delete', postsController.deleteIndividualComment);
+router.get('/comment/:id/delete', postsController.isUser, postsController.deleteIndividualComment);
 
 // edit particular comment
-router.get('/comment/:id/edit', postsController.editIndividualComment);
+router.get('/comment/:id/edit', postsController.isUser, postsController.editIndividualComment);
 
 
 // editform submit of post comment particular comment

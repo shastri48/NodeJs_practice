@@ -5,14 +5,7 @@ var moment = require('moment');
 var bcrypt = require('bcrypt');
 var postsController = require('../controller/posts');
 var jwt = require('jsonwebtoken');
-
-
-
-
-
-
-
-
+ 
 
 
 var Posts = mongoose.model('Posts');
@@ -20,22 +13,25 @@ var Comment = mongoose.model('Comment');
 var User = mongoose.model('User');
 
 
-
+// flash
+router.get(function(req, res){
+  req.flash('info', 'Flash is back!')
+  res.redirect('/login');
+});
 
 
 
 /* GET home page. */
 router.get('/', postsController.isUser , function(req, res, next) {
-  console.log(req.headers);
+  console.log(req.session);
   // jwt.verify(req.headers.token, 'shhhhh', (err, decoded) => {
   //   if(err) return next(err);
     // User.findById(decoded._id, (err, user) => {
       Posts.find({}, (err, data) => {
-        res.render('index', {posts:data, moment:moment});
+        res.render('index', {posts:data, moment:moment, messages: req.flash('info') });
       });
     // })
   // })
-  
 });
 
 // login
@@ -53,8 +49,9 @@ router.post('/login', (req,res) => {
       res.send(err);
     };
     req.session.userId = user._id;
-    var token = jwt.sign({ UserId: user._id }, 'shhhhh');
-    res.json({token: token}); 
+    // var token = jwt.sign({ UserId: user._id }, 'shhhhh');
+    // res.json({token: token}); 
+    res.redirect('/')
   });
 });
 

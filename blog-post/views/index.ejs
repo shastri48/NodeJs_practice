@@ -10,14 +10,14 @@
     <div class="wrapper">
       <!-- header -->
       <%- include partials/header.ejs %>  
-
+      <h1><%= messages %></h1>
       <!-- displaying of all post data -->
       <div class="posts">
         <% posts.forEach(function(post){ %>
           <div class="post">
             <h1 class="post__title"><a href='/posts/<%- post.slug %>'><%- post.title %></a></h1>
             <p class="likes">tags: <%- " "+post.tags %></p>
-            
+
             <% if(locals.user) { %>
             <a class="likes" href="/posts/likes/<%- post.slug %>"><i class="em em-heart"></i><%- " "+post.likes.length %></a>
             <% } else { %>
