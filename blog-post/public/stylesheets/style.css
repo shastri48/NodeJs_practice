@@ -164,6 +164,10 @@ a {
   margin: 20px;
   font-size: 22px;
 }
+.post__author{
+  margin: 0 20px;
+  font-size: 14px;
+}
 .delete__post{
   float:right;
   font-size: 32px;
@@ -183,6 +187,20 @@ a {
   text-decoration: none;
   font-size: 22px;
 }
+.author{
+  margin:20px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+
+/* tags */
+.tags {
+  padding: 3px 5px;
+  background: rgb(146, 107, 161);
+  border-radius: 5px;
+}
+
 
 /* comments */
 
@@ -252,6 +270,10 @@ a {
   font-size: 22px;
   width: 100px;
   height: 40px;
+}
+.comment__author {
+  font-size: 14px;
+  margin: 0 15px;
 }
 
 

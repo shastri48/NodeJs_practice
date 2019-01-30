@@ -17,6 +17,7 @@
           <% } %>
           
           <h1 class="post__title"><%- post.title %></h1>
+          <p class="post__author">Author:- <%- post.author.name %></p>
           <p class="description"><%- post.description %></p>
           
           <% if(locals.user){ %>
@@ -34,10 +35,11 @@
               <h2>Comments: </h2>
               <% post.comments.forEach(function(comment){ %>
                   <h4><%- comment.comment__description %></h4>
+                  <h5 class="comment__author"><%- comment.author.name %></h5>
                   <span class="comment__time"><%- moment(comment.created_at).fromNow() %></span>
 
                   <% if(locals.user){ %>
-                    <% if(locals.user.id==comment.author){ %>
+                    <% if(locals.user.id==comment.author.id){ %>
                       <a href="/posts/comment/<%= comment._id %>/delete">delete</a>
                       <a href="/posts/comment/<%= comment._id %>/edit">edit</a>
                     <% } %>

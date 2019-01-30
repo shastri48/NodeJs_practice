@@ -10,13 +10,6 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var slug = require('slug');
 
-
-
-
-
-
-
-
 // connecting mongoose
 mongoose.connect('mongodb://localhost:27017/blogposts', {useNewUrlParser: true}, (err)=>console.log("connected to mongodb"));
 
@@ -24,6 +17,8 @@ mongoose.connect('mongodb://localhost:27017/blogposts', {useNewUrlParser: true},
 require('./models/Posts');
 require('./models/Comment');
 require('./models/User');
+require('./models/Tags');
+require('./models/Post-tag.js');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -44,7 +39,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'altcampus cookies',
-  cookie: { maxAge: 60000 },
   resave: false,
   saveUninitialized: true,
   store: new MongoStore({ mongooseConnection: mongoose.connection })

@@ -10,8 +10,7 @@ var postsSchema = new Schema ({
   title: String,
   description: String,
   likes: { type: [Schema.Types.ObjectId] },
-  tags: [String],
-  author: String,
+  author: {type:Schema.Types.ObjectId, ref:'User'},
   slug: {type:String, unique: true},
   comments:[{type: Schema.Types.ObjectId, ref: 'Comment'}]
 }, { timestamps: { createdAt: 'created_at' } })

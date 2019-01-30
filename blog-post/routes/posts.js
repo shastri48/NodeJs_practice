@@ -3,6 +3,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var postsController = require('../controller/posts');
 var Posts = mongoose.model('Posts');
+var Tag = mongoose.model('Tag');
+var posttag = mongoose.model('posttag');
 var User = mongoose.model('User');
 
 
@@ -16,13 +18,31 @@ router.get('/create', postsController.isUser, function(req, res, next) {
 
 // crate new post
 router.post('/new', postsController.isUser, ( req, res ) => {
+  if(!res.locals.user._id)return res.send("login first")
+  var tags = req.body.tags.split(" ");
   var id = req.session.userId;
   var newPost = new Posts(req.body);
-  newPost.author  = id;
+  newPost.author = id;
+
   newPost.save((err) => {
     if(err) res.send(err);
+    tags.forEach(value => {
+      Tag.findOneAndUpdate({title: value}, {} ,{upsert:true, new:true}, (err, data) => {
+        var newPostTag = new posttag({
+          tag:data._id,
+          post: newPost._id
+        })
+        newPostTag.save((err) => {
+          if(err) res.send(err);
+        })
+      })
+    })
     res.redirect('/');
   });
+
+ 
+
+
 });
 
 // making likes on individual post likes

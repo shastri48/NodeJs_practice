@@ -25,7 +25,7 @@ var getIndividualPost = function(req, res, next) {
   var userId = req.session.userId;
   var slug = req.params.slug;
   Posts.findOne({slug:slug}, (err, post) => {
-    Posts.findOne({slug: slug}).populate('comments').exec((err,data) => {
+    Posts.findOne({slug: slug}).populate({path:'comments author',populate: [{path:'author', model:'User'}] }).exec((err,data) => {
       if(post.author==userId){
         res.render('post', {post:data, moment:moment, editPost:1});
       } else{

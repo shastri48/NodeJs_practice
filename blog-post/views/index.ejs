@@ -4,25 +4,41 @@
     <title>Welcome to Blog Post</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   </head>
   <body>
     <div class="wrapper">
       <!-- header -->
       <%- include partials/header.ejs %>  
-      <h1><%= messages %></h1>
       <!-- displaying of all post data -->
       <div class="posts">
         <% posts.forEach(function(post){ %>
           <div class="post">
-            <h1 class="post__title"><a href='/posts/<%- post.slug %>'><%- post.title %></a></h1>
-            <p class="likes">tags: <%- " "+post.tags %></p>
+            <h1 class="post__title" v-bind:title='message'><a href='/posts/<%- post.slug %>'><%- post.title %></a></h1>
+            <p class="author">Author:-<%- post.author.name %></p>
+            
+            <p class="likes">tags:
+              <% tagslist.forEach(function(tag){ %>
+                <% if(post.id == tag.post) { %>
+                  <span class="tags">#<%- tag.tag.title %></span>
+                <% }; %>  
+              <% }); %>  
+            </p>
 
             <% if(locals.user) { %>
-            <a class="likes" href="/posts/likes/<%- post.slug %>"><i class="em em-heart"></i><%- " "+post.likes.length %></a>
+              <a class="likes" href="/posts/likes/<%- post.slug %>">
+                <% if(post.likes.includes(locals.user.id)) { %>
+                <% } %>
+              <i class="fas fa-heart"></i>
+              <%- " "+post.likes.length %></a>
             <% } else { %>
-              <a class="likes" href=""><i class="em em-heart"></i><%- " "+post.likes.length %></a>
+              <a class="likes" href=""><i class="fas fa-heart"></i><%- " "+post.likes.length %></a>
             <% } %>
+            <a class="likes" href=""><i class="fas fa-comment-alt"></i><%- " "+post.comments.length %></a>
+            
 
             <span class="likes">created: <%- moment(post.created_at).fromNow() %></span>
           </div>
@@ -30,5 +46,12 @@
       </div>
 
     </div>
+    <script>
+      var check = new Vue({
+        el:'.post__title',
+        data: {
+          message: 'You loaded this page on ' + new Date().toLocaleString()        }
+      })
+    </script>
   </body>
 </html>
