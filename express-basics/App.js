@@ -16,11 +16,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
+
 // app.use((request,response,next) => {
   //   console.log(Date());
   //   next();
   // });
-  
   
   // app.get('/', (request, response) => {
   //   response.send('checking response')
@@ -46,5 +46,5 @@ app.post('/data', (request, response) => {
 
 
 
-app.listen(3000, ()=>console.log("server running on port 3000"));
+app.listen(process.env.PORT || 4000, ()=>console.log("server running on port 4000"));
 

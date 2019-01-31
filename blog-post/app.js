@@ -4,14 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
-var Posts = require('./models/Posts');
 var flash = require('connect-flash-plus');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var slug = require('slug');
 
 // connecting mongoose
-mongoose.connect('mongodb://localhost:27017/blogposts', {useNewUrlParser: true}, (err)=>console.log("connected to mongodb"));
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true}, 
+  (err)=>console.log("connected to mongodb"));
 
 
 require('./models/Posts');
@@ -46,7 +46,6 @@ app.use(session({
 app.use(flash());
 
 
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/register', usersRegister);
@@ -70,5 +69,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// app.listen(port, () => {
+//   console.log('listening in app at 3000');
+// });
 
 module.exports = app;

@@ -3,7 +3,7 @@
       <h1 class="header__title"><a class="title__link" href="/">Blog Posts</a></h1>
       
       <% if(locals.user){ %>
-        <h3 class="user"><%- user.username %></h3>
+        <h3 class="user"><%- user.name %></h3>
       <% } %>
       <% if(locals.user){ %>
         <h3 class="logout"><a class="logout" href="/logout">Logout</a></h3>

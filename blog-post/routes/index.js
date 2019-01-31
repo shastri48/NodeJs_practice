@@ -16,15 +16,15 @@ var posttag = mongoose.model('posttag');
 
 
 /* GET home page. */
-router.get('/', postsController.isUser , function(req, res, next) {
+router.get('/', postsController.isUser , function(req, res) {
   // jwt.verify(req.headers.token, 'shhhhh', (err, decoded) => {
   //   if(err) return next(err);
     // User.findById(decoded._id, (err, user) => {
       Posts.find({}).populate('author').exec((err, post) => {
         posttag.find({}).populate('tag').exec((err, tagslist) => {
-          res.render('index', {posts:post, tagslist:tagslist,  moment:moment, messages: req.flash('info') });
-        })
-      })
+          res.render('index', {posts:post, tagslist:tagslist,  moment:moment, messages:req.flash('info') }); 
+        });
+      });
       //   , (err, data) => {
       //   console.log(data);
       //   res.render('index', {posts:data, moment:moment, messages: req.flash('info') });
@@ -40,8 +40,8 @@ router.get('/login', (req,res) => {
 
 // post method for login
 router.post('/login', (req,res) => {
-  var { username, password } = req.body;
-  User.findOne({username: username}, (err, user) => {
+  var { email, password } = req.body;
+  User.findOne({email: email}, (err, user) => {
     if(err) return res.send(err);
     if(!user) return res.send(err);
     if(!bcrypt.compareSync(password, user.password)) {
